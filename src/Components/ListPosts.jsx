@@ -8,7 +8,7 @@ import Add from './Add'
 export default function ListPosts() {
     const navigate =useNavigate()
     const {data:posts,isError,isLoading,error}=useGetAllPostQuery({
-        pollingInterval:3000
+        pollingInterval:3000// a chaque 3s on fait n appel de api 
     })
     if (isLoading) {
         return <Loader/>

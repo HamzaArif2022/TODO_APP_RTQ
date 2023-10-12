@@ -9,5 +9,5 @@ export const store = configureStore({
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(PostApi.middleware)
 })
 //refetchOnReconnect, refetchOnFocus
-// YAGNI (
+// YAGNI (// c'est une philosofy 
 //setupListeners(store.dispatch)

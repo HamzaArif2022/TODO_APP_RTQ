@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const PostApi = createApi({
     reducerPath: "postApi",// name of reducer
-    baseQuery: fetchBaseQuery(// the fetched query for each endpoints
+    baseQuery: fetchBaseQuery(// the fetched api for each endpoints
         {
             baseUrl: "http://localhost:8000/posts",
 
@@ -18,16 +18,17 @@ export const PostApi = createApi({
     , endpoints: (builder) => ({
         //Endpoints are just a set of operations that you want to perform against your server
         //You define them as an object using the builder syntax
-        // There are two basic endpoint types: query and mutation.
+        // There are two basic endpoint types: (query) and (mutation)
         //CRUD
         getAllPost: builder.query({// query end point used for get data from the server only
             query: () => '/',
             // transform data return 
-            transformResponse:(baseQueryReturnvalue)=>{
-                return baseQueryReturnvalue.map((post)=> ({...post,title:"Learn "+ post.title}))
+            transformResponse: (baseQueryReturnvalue) => {
+                return baseQueryReturnvalue.map((post) => ({ ...post, title: "Learn " + post.title }))
             },
-            providesTags: (result) =>
-                result
+            providesTags: (result) =>// for each post i will give him a specific 
+            //tage beacause when we want to invalidate the cache we use the tags
+                result // thage will be ("Posts") and the id will br ("LIST")
                     ? [
                         ...result.map(({ id }) => ({ type: 'Posts', id })),
                         { type: 'Posts', id: 'LIST' },
@@ -45,7 +46,7 @@ export const PostApi = createApi({
         }),
         addPost: builder.mutation({// Mutation for make operations on the serveur 
             // Add New Post
-            query: (body) => ({
+            query: (body) => ({// bady is a parameter that contains the data added
                 url: '/',
                 method: 'POST',
                 body: body,// content
@@ -55,6 +56,7 @@ export const PostApi = createApi({
             }]
 
         }),
+        
         deletePost: builder.mutation({
             query: (id) => ({
                 url: `/${id}`,

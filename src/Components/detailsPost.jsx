@@ -9,7 +9,7 @@ function DetailsPost() {
   const [deletePost, data] = useDeletePostMutation()
   const handlerDelete = (e, id) => {
     e.preventDefault();
-    deletePost(id)
+    deletePost(id)// on faite un appel de la methode de endspoint de createApi 
     navigate("/")
 
   }
